@@ -27,8 +27,8 @@ class LoadDropResource extends JsonResource
             "timeOfDrop" => $this->time_of_drop,
             "acknowledged_at" => $this->acknowledged_at,
             "calculationType" => $this->calculation_type,
-            "prevLoadPercentage" => $this->getPercentage($this->load, $this->previous_load),
-            "refLoadPercentage" => $this->getPercentage($this->load, $this->reference_load)
+            "prevLoadPercentage" => number_format($this->getPercentage($this->load, $this->previous_load), 2),
+            "refLoadPercentage" => number_format($this->getPercentage($this->load, $this->reference_load), 2)
         ];
     }
 

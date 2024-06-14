@@ -51,10 +51,18 @@ class PowerStations extends Seeder
         ];
 
         foreach($powerStations as $station) {
-            $powerStation = new PowerStation;
-            $powerStation->name = $station['name'];
-            $powerStation->identifier = $station['identifier'];
-            $powerStation->save();
+            $powerStationObjs = PowerStation::where('identifier', $station['identifier'])->get();
+            if($powerStationObjs->count() > 0) {
+                $skip = true;
+                foreach($powerStationObjs as $powerStationObj) {
+                    if(!$skip)$powerStationObj->delete();
+                    $skipped = false;
+                }
+            }
+            // $powerStation = new PowerStation;
+            // $powerStation->name = $station['name'];
+            // $powerStation->identifier = $station['identifier'];
+            // $powerStation->save();
         }
     }
 }
