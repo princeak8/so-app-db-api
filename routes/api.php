@@ -12,6 +12,7 @@ Route::group(['prefix' => '/load_drop',], function () {
     Route::post('/acknowledge_station', 'LoadDropController@acknowledgeStation');
     Route::get('/latest', 'LoadDropController@latest');
     Route::get('/range', 'LoadDropController@getRange');
+    Route::get('/download_range', 'LoadDropController@downloadRange');
     // Route::post('/acknowledged', 'LoadDropController@save');
     // Route::post('/un_acknowldeged', 'LoadDropController@save');
 });

@@ -37,7 +37,8 @@ class LoadDropService
     public function range($data, $group=false)
     {
         if(!isset($data['end'])) $data['end'] = Date('Y-m-d H:i:s');
-        $start = $data['start'].' 00:00:00';
+        $startParts = explode(' ', $data['start']);
+        $start = (isset($startParts[1])) ? $data['start'] : $data['start'].' 00:00:00';
         $end = $data['end'];
         if($group) {
             return LoadDrop::where('time_of_drop', '>=', $start)->where('time_of_drop', '<=', $end)
@@ -50,6 +51,8 @@ class LoadDropService
                             ->get();
         }
     }
+
+
 
     public function save($data)
     {

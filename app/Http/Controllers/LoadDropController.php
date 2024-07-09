@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Excel;
+use App\Exports\LoadDropExport;
 
 use App\Http\Resources\LoadDropResource;
 
@@ -92,6 +94,21 @@ class LoadDropController extends Controller
             if(isset($data['start'])) {
                 $loadDrops = (isset($data['group'])) ? $this->loadDropService->range($data, true) : $this->loadDropService->range($data);
                 return Utilities::okay(LoadDropResource::collection($loadDrops));
+            }else{
+                return Utilities::error402('Start date is compulsory');
+            }
+        }catch(\Exception $e) {
+            return Utilities::error($e);
+        }
+    }
+
+    public function downloadRange(Request $request)
+    {
+        try{
+            $data = $request->all();
+            if(isset($data['start'])) {
+                $loadDrops = (isset($data['group'])) ? $this->loadDropService->range($data, true) : $this->loadDropService->range($data);
+                return Excel::download(new LoadDropExport($loadDrops), 'loadDroap Report '.$data['start']);
             }else{
                 return Utilities::error402('Start date is compulsory');
             }
