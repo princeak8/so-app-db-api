@@ -6,7 +6,7 @@ class Helpers
 {
     public static function percentage(Float $target, Float $total)
     {
-        if(($total - $target) > 0) {
+        if(($total - $target) >= 0) {
             $percentage = ($target/$total) * 100;
             return [
                 "success" => true,

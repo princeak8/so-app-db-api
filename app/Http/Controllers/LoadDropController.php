@@ -7,6 +7,7 @@ use Excel;
 use App\Exports\LoadDropExport;
 
 use App\Http\Resources\LoadDropResource;
+use App\Http\Resources\LoadDropExcelResource;
 
 use App\Services\LoadDropService;
 use App\Services\PowerStationService;
@@ -108,7 +109,9 @@ class LoadDropController extends Controller
             $data = $request->all();
             if(isset($data['start'])) {
                 $loadDrops = (isset($data['group'])) ? $this->loadDropService->range($data, true) : $this->loadDropService->range($data);
-                return Excel::download(new LoadDropExport($loadDrops), 'loadDroap Report '.$data['start']);
+                $loadDrops = LoadDropExcelResource::collection($loadDrops);
+                $filename = "loadDroap Report ".$data['start'].".xlsx";
+                return Excel::download(new LoadDropExport($loadDrops), $filename);
             }else{
                 return Utilities::error402('Start date is compulsory');
             }

@@ -5,14 +5,18 @@ namespace App\Exports;
 use App\Models\LoadDrop;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromArray;
-use Illuminate\Database\Eloquent\Collection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class LoadDropExport implements FromCollection
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use PhpParser\Node\Expr\Cast\Array_;
+
+class LoadDropExport implements FromCollection, WithHeadings
 // class LoadDropExport implements FromArray
 {
     protected $loadDrops;
 
-    public function __construct(Collection $loadDrops)
+    public function __construct(AnonymousResourceCollection $loadDrops)
     {
         $this->loadDrops = $loadDrops;
     }
@@ -30,4 +34,9 @@ class LoadDropExport implements FromCollection
     // {
     //     return $this->loadDrops;
     // }
+
+    public function headings(): array
+    {
+        return ["STATION", "LOAD", "PREVIOUS LOAD", "REFERENCE LOAD", "PREVIOUS LOAD %", "REFERENCE LOAD %", "TIME OF DROP"];
+    }
 }
