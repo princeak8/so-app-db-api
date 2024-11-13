@@ -54,12 +54,18 @@ class LoadDropService
         $end = $data['end'];
         if($group) {
             return LoadDrop::select(DB::raw('DISTINCT ON (time_of_drop) *'))
+                            ->where(function($query) {
+                                $query->where('load', 0)->where('previous_load', 0);
+                            })
                             ->where('time_of_drop', '>=', $start)->where('time_of_drop', '<=', $end)
                             // ->groupBy('power_station_id')
                             ->orderBy('time_of_drop', 'desc')
                             ->get();
         }else{
             return LoadDrop::select(DB::raw('DISTINCT ON (time_of_drop) *'))
+                            ->where(function($query) {
+                                $query->where('load', 0)->where('previous_load', 0);
+                            })
                             ->where('time_of_drop', '>=', $start)->where('time_of_drop', '<=', $end)
                             // ->groupBy('time_of_drop')
                             ->orderBy('time_of_drop', 'desc')
