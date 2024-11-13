@@ -36,7 +36,12 @@ class LoadDropService
 
     public function range($data, $group=false)
     {
-        if(!isset($data['end'])) $data['end'] = Date('Y-m-d H:i:s');
+        if(!isset($data['end'])) {
+            $data['end'] = Date('Y-m-d H:i:s');
+        }else{
+            $endParts = explode(' ', $data['end']);
+            $end = (isset($endParts[1])) ? $data['end'] : $data['end'].' 23:59:59';
+        }
         $startParts = explode(' ', $data['start']);
         $start = (isset($startParts[1])) ? $data['start'] : $data['start'].' 00:00:00';
         $end = $data['end'];
