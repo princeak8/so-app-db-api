@@ -40,7 +40,7 @@ class LoadDropService
             $data['end'] = Date('Y-m-d H:i:s');
         }else{
             $endParts = explode(' ', $data['end']);
-            $end = (isset($endParts[1])) ? $data['end'] : $data['end'].' 23:59:59';
+            $data['end'] = (isset($endParts[1])) ? $data['end'] : $data['end'].' 23:59:59';
         }
         $startParts = explode(' ', $data['start']);
         $start = (isset($startParts[1])) ? $data['start'] : $data['start'].' 00:00:00';
