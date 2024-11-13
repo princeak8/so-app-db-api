@@ -28,7 +28,7 @@ class LoadDrop extends BaseRequest
             "previousLoad" => "required|numeric",
             "referenceLoad" => "required|numeric",
             "timeOfDrop" => "required|date",
-            "calType" => "string",
+            "calType" => "required|string",
             "acknowledgedAt" => "nullable|date"
         ];
     }
