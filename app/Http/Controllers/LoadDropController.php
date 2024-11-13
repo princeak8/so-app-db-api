@@ -111,6 +111,7 @@ class LoadDropController extends Controller
                 $loadDrops = (isset($data['group'])) ? $this->loadDropService->range($data, true) : $this->loadDropService->range($data);
                 $loadDrops = LoadDropExcelResource::collection($loadDrops);
                 $filename = "loadDroap Report ".$data['start'].".xlsx";
+                // dd($loadDrops);
                 return Excel::download(new LoadDropExport($loadDrops), $filename);
             }else{
                 return Utilities::error402('Start date is compulsory');
