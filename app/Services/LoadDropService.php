@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\LoadDrop;
 
 class LoadDropService
@@ -31,8 +33,12 @@ class LoadDropService
     public function latestLoadDrops($limit=10)
     {
         $limit = env('LATEST_LOAD_DROPS_LIMIT', $limit);
-        return LoadDrop::distinct()
-                        ->orderBy('time_of_drop', 'desc')->orderBy('created_at', 'desc')->limit($limit)->get();
+        // return LoadDrop::groupBy('time_of_drop')->orderBy('time_of_drop', 'desc')->orderBy('created_at', 'desc')->limit($limit)->get();
+        return LoadDrop::select(DB::raw('DISTINCT ON (time_of_drop) *'))
+                ->orderBy('time_of_drop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->limit($limit)
+                ->get();
     }
 
     public function range($data, $group=false)
@@ -47,17 +53,15 @@ class LoadDropService
         $start = (isset($startParts[1])) ? $data['start'] : $data['start'].' 00:00:00';
         $end = $data['end'];
         if($group) {
-            return LoadDrop::select('id', 'power_station_id', 'load', 'reference_load', 'previous_load', 'time_of_drop', 'acknowledged_at', 'calculation_type')
-                            ->distinct()
+            return LoadDrop::select(DB::raw('DISTINCT ON (time_of_drop) *'))
                             ->where('time_of_drop', '>=', $start)->where('time_of_drop', '<=', $end)
-                            ->groupBy('id', 'power_station_id', 'load', 'reference_load', 'previous_load', 'time_of_drop', 'acknowledged_at', 'calculation_type')
+                            ->groupBy('power_station_id')
                             ->orderBy('time_of_drop', 'desc')
                             ->get();
         }else{
-            return LoadDrop::select('id', 'power_station_id', 'load', 'reference_load', 'previous_load', 'time_of_drop', 'acknowledged_at', 'calculation_type')
-                            ->distinct()
+            return LoadDrop::select(DB::raw('DISTINCT ON (time_of_drop) *'))
                             ->where('time_of_drop', '>=', $start)->where('time_of_drop', '<=', $end)
-                            ->groupBy('id', 'power_station_id', 'load', 'reference_load', 'previous_load', 'time_of_drop', 'acknowledged_at', 'calculation_type')
+                            ->groupBy('time_of_drop')
                             ->orderBy('time_of_drop', 'desc')
                             ->get();
         }
