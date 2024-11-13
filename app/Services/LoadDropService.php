@@ -54,7 +54,8 @@ class LoadDropService
                             ->orderBy('time_of_drop', 'desc')
                             ->get();
         }else{
-            return LoadDrop::where('time_of_drop', '>=', $start)->where('time_of_drop', '<=', $end)
+            return LoadDrop::distinct()->where('time_of_drop', '>=', $start)->where('time_of_drop', '<=', $end)
+                            ->groupBy('id', 'power_station_id', 'load', 'reference_load', 'previous_load', 'time_of_drop', 'acknowledged_at', 'calculation_type')
                             ->orderBy('time_of_drop', 'desc')
                             ->get();
         }
