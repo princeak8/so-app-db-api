@@ -21,6 +21,7 @@ class LoadDropExcelResource extends JsonResource
         return [
             "station" => $this->station->name,
             "load" => ($this->load != null) ? $this->load : 0,
+            "loadDrop" => $this->previous_load - $this->load,
             "previousLoad" => ($this->previous_load != null) ? $this->previous_load : 0,
             "referenceLoad" => ($this->reference_load != null) ? $this->reference_load : 0,
             "prevLoadPercentage" => number_format($this->getPercentage($this->load, $this->previous_load), 2),

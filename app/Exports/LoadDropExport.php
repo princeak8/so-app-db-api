@@ -37,6 +37,6 @@ class LoadDropExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ["STATION", "LOAD", "PREVIOUS LOAD", "REFERENCE LOAD", "PREVIOUS LOAD %", "REFERENCE LOAD %", "TIME OF DROP"];
+        return ["STATION", "LOAD", "LOAD DROP", "PREVIOUS LOAD", "REFERENCE LOAD", "PREVIOUS LOAD %", "REFERENCE LOAD %", "TIME OF DROP"];
     }
 }
