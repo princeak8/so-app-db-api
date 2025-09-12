@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('load_drops', function (Blueprint $table) {
+        Schema::create('power_unit_events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('power_station_id')->references('id')->on('power_stations')->constrained();
+            $table->foreignId("power_station_id");
+            $table->foreignId("power_unit_id");
+            $table->string("event");
             $table->decimal('load', 5, 2);
-            $table->decimal('previous_load', 5, 2);
+            $table->decimal('prev_load', 5, 2);
             $table->decimal('reference_load', 5, 2);
-            $table->timestamp('time_of_drop');
-            $table->string('calculation_type');
-            $table->timestamp('acknowledged_at')->nullable();
+            $table->decimal('frequency', 4, 2);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('load_drops');
+        Schema::dropIfExists('power_unit_events');
     }
 };

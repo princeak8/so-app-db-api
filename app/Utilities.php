@@ -66,7 +66,10 @@ class Utilities
         return response()->json([
             'statusCode' => 200,
             'data' => $data
-        ], 200);
+        ], 200)
+        ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
     }
 
     public static function custom($statusCode, $res=[])

@@ -43,7 +43,7 @@ class PowerStations extends Seeder
             [ "name" => 'Paras Energy (Gas)', "identifier" => StationID::ParasEnergy->value ],
             [ "name" => 'Rivers IPP (Gas)', "identifier" => StationID::RiversIpp->value ],
             [ "name" => 'Sapele NIPP', "identifier" => StationID::SapeleNipp->value ],
-            [ "name" => 'Sapele (Steam)', "identifier" => StationID::SapeleSteam->value ],
+            [ "name" => 'Sapele', "identifier" => StationID::SapeleSteam->value ],
             [ "name" => 'Shiroro (Hydro)', "identifier" => StationID::Shiroro->value ],
             [ "name" => 'Taopex', "identifier" => StationID::Taopex->value ],
             [ "name" => 'Transamadi (Gas)', "identifier" => StationID::Transamadi->value ],
