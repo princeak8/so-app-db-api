@@ -28,6 +28,10 @@ Route::group(['prefix' => '/load_drop',], function () {
     // Route::post('/un_acknowldeged', 'LoadDropController@save');
 });
 
+Route::get('/env', function () {
+    return env('DB_USERNAME');
+});
+
 Route::group(['prefix' => '/power_data',], function () {
     Route::post('/save', [PowerDataController::class, 'save']);
 });

@@ -13,9 +13,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('load_drops', function (Blueprint $table) {
-            DB::statement("
-                CREATE INDEX idx_time_of_drop ON load_drops(time_of_drop)
-            ");
+            // DB::statement("
+            //     CREATE INDEX idx_time_of_drop ON load_drops(time_of_drop)
+            // ");
+            if (!Schema::hasIndex('load_drops', 'idx_time_of_drop')) {
+                $table->index('time_of_drop', 'idx_time_of_drop');
+            }
         });
     }
 
