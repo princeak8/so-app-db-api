@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->primary(['id', 'captured_at']);
         
-            $table->foreign('power_station_id')->references('id')->on('power_stations')->onDelete('cascade');
+            $table->foreign('power_station_id');
         
             $table->index('power_station_id');
             $table->index('captured_at');
