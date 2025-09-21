@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('load_drops', function (Blueprint $table) {
-            $table->dropPrimary(); 
+            try {
+                $table->dropPrimary(); 
+            } catch (\Exception $e) {
+                // Primary key doesn't exist, continue
+                if (!str_contains($e->getMessage(), 'does not exist')) {
+                    throw $e; // Re-throw if it's a different error
+                }
+            } 
             $table->primary(['id', 'time_of_drop']);
         });
     }

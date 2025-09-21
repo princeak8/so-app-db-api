@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('power_data', function (Blueprint $table) {
             $table->id(); // auto-increment, not used as primary for hypertable
-            $table->foreignId('power_station_id');
+            $table->unsignedBigInteger('power_station_id');
             $table->decimal('load', 10, 4);
             $table->decimal('frequency', 8, 4)->nullable();
             $table->timestampTz('captured_at');
@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->primary(['id', 'captured_at']);
         
-            $table->foreign('power_station_id');
+            // $table->foreign('power_station_id');
         
             $table->index('power_station_id');
             $table->index('captured_at');
