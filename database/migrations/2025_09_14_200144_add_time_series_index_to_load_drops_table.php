@@ -21,7 +21,9 @@ return new class extends Migration
         DB::statement("
             SELECT create_hypertable('load_drops', 'time_of_drop', 
                 chunk_time_interval => INTERVAL '1 day',
-                create_default_indexes => FALSE
+                create_default_indexes => FALSE,
+                if_not_exists => TRUE,
+                migrate_data => TRUE
             )
         ");
         // DB::statement("SELECT add_retention_policy('load_drops', INTERVAL '180 days')");
