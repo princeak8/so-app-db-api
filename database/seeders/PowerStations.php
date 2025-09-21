@@ -16,6 +16,7 @@ class PowerStations extends Seeder
     public function run(): void
     {
         $powerStations = [
+            [ "name" => 'Afam III', "identifier" => StationID::AfamIII->value ],
             [ "name" => 'Afam IV', "identifier" => StationID::AfamIV->value ],
             [ "name" => 'Afam V', "identifier" => StationID::AfamV->value ],
             [ "name" => 'Afam VI', "identifier" => StationID::AfamVI->value ],
@@ -43,7 +44,7 @@ class PowerStations extends Seeder
             [ "name" => 'Paras Energy (Gas)', "identifier" => StationID::ParasEnergy->value ],
             [ "name" => 'Rivers IPP (Gas)', "identifier" => StationID::RiversIpp->value ],
             [ "name" => 'Sapele NIPP', "identifier" => StationID::SapeleNipp->value ],
-            [ "name" => 'Sapele', "identifier" => StationID::SapeleSteam->value ],
+            [ "name" => 'Sapele', "identifier" => StationID::Sapele->value ],
             [ "name" => 'Shiroro (Hydro)', "identifier" => StationID::Shiroro->value ],
             [ "name" => 'Taopex', "identifier" => StationID::Taopex->value ],
             [ "name" => 'Transamadi (Gas)', "identifier" => StationID::Transamadi->value ],
@@ -51,18 +52,20 @@ class PowerStations extends Seeder
         ];
 
         foreach($powerStations as $station) {
-            $powerStationObjs = PowerStation::where('identifier', $station['identifier'])->get();
-            if($powerStationObjs->count() > 0) {
-                $skip = true;
-                foreach($powerStationObjs as $powerStationObj) {
-                    if(!$skip)$powerStationObj->delete();
-                    $skipped = false;
-                }
+            $powerStation = PowerStation::where('identifier', $station['identifier'])->first();
+            // if($powerStationObjs->count() > 0) {
+            //     $skip = true;
+            //     foreach($powerStationObjs as $powerStationObj) {
+            //         if(!$skip)$powerStationObj->delete();
+            //         $skipped = false;
+            //     }
+            // }
+            if(!$powerStation) {
+                $powerStation = new PowerStation;
+                $powerStation->name = $station['name'];
+                $powerStation->identifier = $station['identifier'];
+                $powerStation->save();
             }
-            // $powerStation = new PowerStation;
-            // $powerStation->name = $station['name'];
-            // $powerStation->identifier = $station['identifier'];
-            // $powerStation->save();
         }
     }
 }

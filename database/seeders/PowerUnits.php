@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\PowerUnit;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,25 @@ class PowerUnits extends Seeder
     public function run(): void
     {
         $powerStations = [
+            "afamIIIPs" => [
+                ["name" => "TM23", "identifier" => "tm23"],
+                ["name" => "TM24", "identifier" => "tm24"],
+                ["name" => "TM25", "identifier" => "tm25"],
+            ],
+            "afamIv_vPs" => [
+                ["name" => "GT17", "identifier" => "gt17"],
+                ["name" => "GT18", "identifier" => "gt18"],
+            ],
+            "afamVPs" => [
+                ["name" => "GT19", "identifier" => "gt19"],
+                ["name" => "GT20", "identifier" => "gt20"]
+            ],
+            "afamVIPs" => [
+                ["name" => "GT11", "identifier" => "gt11"],
+                ["name" => "GT12", "identifier" => "gt12"],
+                ["name" => "GT13", "identifier" => "gt13"],
+                ["name" => "ST1", "identifier" => "st1"]
+            ],
             "delta2" => [
                 ["name" => "GT4", "identifier" => "gt4"],
                 ["name" => "GT5", "identifier" => "gt5"],
@@ -72,11 +92,14 @@ class PowerUnits extends Seeder
                 foreach($units as $unit) {
                     $powerUnit = $powerUnitService->getByIdentifier($unit["identifier"]);
                     if(!$powerUnit) {
+                        $powerUnit = new PowerUnit;
+                        // dd($powerStation->id);
                         $powerUnit->power_station_id = $powerStation->id;
                         $powerUnit->name = $unit["name"];
                         $powerUnit->identifier = $unit["identifier"];
                         $powerUnit->save();
                     }
+                    // dd($powerUnit);
                 }
             }
         }

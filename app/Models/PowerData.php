@@ -9,6 +9,13 @@ class PowerData extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "power_station_id",
+        "load",
+        "frequency",
+        "captured_at"
+    ];
+
     public function PowerStation()
     {
         return $this->belongsTo(PowerStation::class);

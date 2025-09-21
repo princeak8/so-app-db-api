@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\PowerDataController;
+
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
@@ -24,4 +26,8 @@ Route::group(['prefix' => '/load_drop',], function () {
     Route::get('/download_range', 'LoadDropController@downloadRange');
     // Route::post('/acknowledged', 'LoadDropController@save');
     // Route::post('/un_acknowldeged', 'LoadDropController@save');
+});
+
+Route::group(['prefix' => '/power_data',], function () {
+    Route::post('/save', [PowerDataController::class, 'save']);
 });

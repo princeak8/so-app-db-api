@@ -4,9 +4,10 @@ namespace App\Enums;
 
 enum StationID: string
     {
+        case AfamIII = 'afamIIIPs';
         case AfamIV = 'afamIv_vPs';
         case AfamV = 'afamVPs';
-        case AfamVI = 'afamViTs';
+        case AfamVI = 'afamVIPs';
         case Alaoji = 'alaoji';
         case Azura = 'azuraIppPs';
         case Dadinkowa = 'dadinKowaGs';
@@ -29,7 +30,7 @@ enum StationID: string
         case ParasEnergy = 'parasEnergyPs';
         case RiversIpp = 'riversIppPs';
         case SapeleNipp = 'sapeleNipp';
-        case SapeleSteam = 'sapeleSteam';
+        case Sapele = 'sapele';
         case Shiroro = 'shiroroPs';
         case Taopex = 'taopex';
         case Transamadi = 'phMain';
