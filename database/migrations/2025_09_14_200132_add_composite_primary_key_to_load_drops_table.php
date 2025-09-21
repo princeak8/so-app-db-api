@@ -6,20 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    private function primaryKeyExists($tableName, $constraintName = null): bool
+    {
+        $constraintName = $constraintName ?: $tableName . '_pkey';
+        
+        $result = DB::select("
+            SELECT 1 FROM information_schema.table_constraints 
+            WHERE table_name = ? 
+            AND constraint_type = 'PRIMARY KEY'
+            AND constraint_name = ?
+        ", [$tableName, $constraintName]);
+        
+        return !empty($result);
+    }
+
     public function up(): void
     {
         Schema::table('load_drops', function (Blueprint $table) {
-            try {
+            if ($this->primaryKeyExists('load_drops')) {
                 $table->dropPrimary(); 
-            } catch (\Exception $e) {
-                // Primary key doesn't exist, continue
-                if (!str_contains($e->getMessage(), 'does not exist')) {
-                    throw $e; // Re-throw if it's a different error
-                }
-            } 
+            }
+            
             $table->primary(['id', 'time_of_drop']);
         });
     }
